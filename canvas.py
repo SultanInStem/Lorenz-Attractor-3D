@@ -1,6 +1,18 @@
+import math 
+# import numpy as np
 import pygame
 import sys
 from globals import to_math_coords, to_screen_coords
+from vector import Vector 
+
+t = 0
+
+rotation_x = [
+    [1,0,0], 
+    [0, math.cos(t), -math.sin(t)], 
+    [0, math.sin(t), math.cos(t)]
+]
+
 class Canvas: 
     def __init__(self, width, height): 
         pygame.init()
@@ -9,6 +21,9 @@ class Canvas:
         self.clock = pygame.time.Clock()
         self.running = True
         self.screen_size = self.screen.get_size()
+        self.vector_x = Vector((0,0,0),(100,0,0))
+        self.vector_y = Vector((0,0,0), (0,100,0))
+        self.vector_z = Vector((0,0,0), (0,0,100))
     def handle_events(self): 
         for event in pygame.event.get(): 
             if event.type == pygame.QUIT: 
@@ -19,7 +34,9 @@ class Canvas:
     def render(self):
         self.screen.fill((0,0,0))
 
-        pygame.draw.circle(self.screen, (255,255,255), to_screen_coords((-100,-100),self.screen_size), 20, 0)
+        self.vector_x.draw(self.screen)
+        self.vector_y.draw(self.screen)
+
         pygame.display.flip()
         self.clock.tick(30)
     def run(self): 
