@@ -8,12 +8,7 @@ class Vector:
         pass 
 
     def draw(self, screen): 
-        screen_size = screen.get_size()
-        screen_start = project_to_2d(self.start_pos, 1)
-        screen_end = project_to_2d(self.end_pos, 1)
-        screen_start = to_screen_coords(screen_start, screen_size, 1)
-        screen_end = to_screen_coords(screen_end, screen_size, 1)
-        pygame.draw.line(screen, (255,255,255), screen_start, screen_end)     
+        pass
     def get_end_point(self): 
         return self.end_pos 
     def set_end_point(self, point): 

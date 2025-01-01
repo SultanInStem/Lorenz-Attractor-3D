@@ -1,6 +1,5 @@
 import math 
 import pygame
-# import numpy as np 
 import sys
 from globals import to_math_coords, to_screen_coords, rotate_x, rotate_y
 from vector import Vector 
@@ -16,30 +15,30 @@ class Canvas:
         self.running = True
         self.screen_size = self.screen.get_size()
         self.vectors = [
-            Vector((0,0,0),(100,0,0)),
+            Vector((0,0,0),(50,0,0)),
             Vector((0,0,0), (0,100,0)),
-            Vector((0,0,0), (0,0,100))
+            Vector((0,0,0), (-30,0,100))
         ]
 
-        self.angle = 3.14 / 2
+        self.angle = 0
     def handle_events(self): 
         for event in pygame.event.get(): 
             if event.type == pygame.QUIT: 
                 self.running = False
     def update(self):
-        for i in range(0, len(self.vectors)): 
-            res = rotate_x(self.vectors[i].get_end_point(), self.angle)
-            res = rotate_y(res, self.angle) 
-            self.vectors[i].set_end_point(res)
+        self.angle += 0.00001
+        end = self.vectors[0].get_end_point()
+        res = rotate_y(end,self.angle)
+        self.vectors[0].set_end_point(res)
         
     def render(self):
         self.screen.fill((0,0,0))
 
-        for i in range(0, len(self.vectors)): 
-            self.vectors[i].draw(self.screen)
+
+        self.vectors[0].draw(self.screen)
 
         pygame.display.flip()
-        self.clock.tick(30)
+        self.clock.tick(60)
     def run(self): 
         while(self.running): 
             self.handle_events()
