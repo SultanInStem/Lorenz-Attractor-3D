@@ -1,4 +1,4 @@
-#!/Users/sultkh/Desktop/pythonProjects/Lorenz-Attractor-3D/env/bin/python3.12
+#!/Users/sultkh/Desktop/pythonProjects/Lorenz-Attractor-3D/env/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys

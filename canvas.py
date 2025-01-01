@@ -1,17 +1,11 @@
 import math 
-# import numpy as np
 import pygame
+# import numpy as np 
 import sys
-from globals import to_math_coords, to_screen_coords
+from globals import to_math_coords, to_screen_coords, rotate_x, rotate_y
 from vector import Vector 
 
-t = 0
 
-rotation_x = [
-    [1,0,0], 
-    [0, math.cos(t), -math.sin(t)], 
-    [0, math.sin(t), math.cos(t)]
-]
 
 class Canvas: 
     def __init__(self, width, height): 
@@ -21,21 +15,28 @@ class Canvas:
         self.clock = pygame.time.Clock()
         self.running = True
         self.screen_size = self.screen.get_size()
-        self.vector_x = Vector((0,0,0),(100,0,0))
-        self.vector_y = Vector((0,0,0), (0,100,0))
-        self.vector_z = Vector((0,0,0), (0,0,100))
+        self.vectors = [
+            Vector((0,0,0),(100,0,0)),
+            Vector((0,0,0), (0,100,0)),
+            Vector((0,0,0), (0,0,100))
+        ]
+
+        self.angle = 3.14 / 2
     def handle_events(self): 
         for event in pygame.event.get(): 
             if event.type == pygame.QUIT: 
                 self.running = False
-    def update(self): 
-        pass 
-
+    def update(self):
+        for i in range(0, len(self.vectors)): 
+            res = rotate_x(self.vectors[i].get_end_point(), self.angle)
+            res = rotate_y(res, self.angle) 
+            self.vectors[i].set_end_point(res)
+        
     def render(self):
         self.screen.fill((0,0,0))
 
-        self.vector_x.draw(self.screen)
-        self.vector_y.draw(self.screen)
+        for i in range(0, len(self.vectors)): 
+            self.vectors[i].draw(self.screen)
 
         pygame.display.flip()
         self.clock.tick(30)
