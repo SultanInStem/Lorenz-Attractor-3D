@@ -26,16 +26,11 @@ class Canvas:
             if event.type == pygame.QUIT: 
                 self.running = False
     def update(self):
-        self.angle += 0.00001
-        end = self.vectors[0].get_end_point()
-        res = rotate_y(end,self.angle)
-        self.vectors[0].set_end_point(res)
+        pass
         
     def render(self):
         self.screen.fill((0,0,0))
 
-
-        self.vectors[0].draw(self.screen)
 
         pygame.display.flip()
         self.clock.tick(60)
